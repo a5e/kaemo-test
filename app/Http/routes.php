@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'api'], function () {
+    Route::get(
+        'videos',
+        'VideosApiController@index',
+        ['parameters' => [
+            'date' => 'from',
+            'date' => 'to',
+            'realisator' => 'realisator'
+            ]
+        ]);
+
+    Route::get('videos/{id}', 'VideosApiController@show')
+        ->where('id', '[0-9]+');;
 });
